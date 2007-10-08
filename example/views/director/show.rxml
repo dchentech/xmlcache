@@ -1,0 +1,8 @@
+xml.instruct!   
+cache_xml("director/#{@director.id}") do  
+  xml.director :name=>@director.name, :age=>@director.age do
+    @director.films.each do |film|
+      xml.film :name=>film.name, :rating=>file.rating, :release_date=>film.release_date
+    end
+  end
+end  

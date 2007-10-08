@@ -1,0 +1,8 @@
+Xmlcache
+========
+
+Loads one function for use within RXML documents -- cache_xml. This function is used exactly like cache for RHTML fragments and uses the exact same arguments.
+
+Please refer to the /example director for usage. Its really simple. :)
+
+For more information please visit http://code.google.com/p/xmlcache for more information.
