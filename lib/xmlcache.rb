@@ -23,6 +23,17 @@
            write_fragment(name,buffer[pos..-1], options)
          end
        end
+       #used in extension
+       def cache_xml_timeout(name={}, expire = 10.minutes.from_now, &block)
+         unless perform_caching then block.call; return end
+         @@cache_timeout_values = {} if @@cache_timeout_values.nil?
+         key = fragment_cache_key(name)
+         if is_cache_expired?(key)
+           expire_fragment(key)
+           @@cache_timeout_values[key] = expire
+         end
+         cache_xml_fragment(block,name)
+       end
      end
    end
  end
