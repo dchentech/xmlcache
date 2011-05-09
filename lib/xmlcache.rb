@@ -2,8 +2,18 @@ module Xmlcache
   @@models = {}
 
   def self.expire_fragment ar
-    model = @@models[ar.class] || (@@models[ar.class] = ar.class.name.downcase)
-    Rails.cache.delete "views/#{model}_#{ar.id}"
+    if @@models[ar.class].blank?
+      model = ar.class.name.downcase
+      @@models[ar.class] = if defined?((ar.class)::XmlcachePrefix)
+               (ar.class)::XmlcachePrefix.map {|pre| "views/#{model}_#{pre}_" }
+             else
+               ["views/#{model}_"]
+             end
+    end
+
+    @@models[ar.class].each do |key|
+      puts "clear cache #{key}#{ar.id}" if Rails.cache.delete "#{key}#{ar.id}"
+    end
   end
 end
 
