@@ -21,7 +21,7 @@ module ActionView
  module Helpers
    module CacheHelper
      def cache_xml(name, &block)
-       @controller.cache_xml_fragment(block, name)
+       controller.cache_xml_fragment(block, name)
      end
    end
  end
@@ -50,6 +50,7 @@ end
 module ActiveRecord
   class Base
     after_save :expire_fragment
+    after_destroy :expire_fragment
 
     def expire_fragment
       Xmlcache.expire_fragment self
