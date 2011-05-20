@@ -12,7 +12,7 @@ module Xmlcache
     end
 
     @@models[ar.class].each do |key|
-      puts "clear cache #{key}#{ar.id}" if Rails.cache.delete "#{key}#{ar.id}"
+      Rails.logger.debug { "clear cache #{key}#{ar.id}" } if Rails.cache.delete "#{key}#{ar.id}"
     end
   end
 end
